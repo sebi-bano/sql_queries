@@ -1,0 +1,123 @@
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE LENGTH(ENAME)= 4;
+
+ENAME                                                                                               
+----------                                                                                          
+WARD                                                                                                
+KING                                                                                                
+FORD                                                                                                
+
+SQL> SELECT JOB
+  2  FROM EMP
+  3  WHERE LENGTH(JOB)= 7;
+
+JOB                                                                                                 
+---------                                                                                           
+MANAGER                                                                                             
+MANAGER                                                                                             
+MANAGER                                                                                             
+ANALYST                                                                                             
+ANALYST                                                                                             
+
+SQL> SELECT LENGTH('QSPIDERS') - LENGTH(REPLACE('QSPIDERS','S'))
+  2  FROM DUAL;
+
+LENGTH('QSPIDERS')-LENGTH(REPLACE('QSPIDERS','S'))                                                  
+--------------------------------------------------                                                  
+                                                 2                                                  
+
+SQL> SELECT ENAME
+  2  run
+  3  FROM EMP
+  4  WHERE SUBSTR(JOB, LENGTH(JOB)-2 , 3)= 'MAN';
+
+RUN                                                                                                 
+----------                                                                                          
+ALLEN                                                                                               
+WARD                                                                                                
+MARTIN                                                                                              
+TURNER                                                                                              
+
+SQL> SELECT JOB
+  2  FROM EMP
+  3  WHERE SUBSTR(JOB, LENGTH(JOB)-2 , 3)= 'MAN';
+
+JOB                                                                                                 
+---------                                                                                           
+SALESMAN                                                                                            
+SALESMAN                                                                                            
+SALESMAN                                                                                            
+SALESMAN                                                                                            
+
+SQL> SELECT JOB
+  2  FROM EMP
+  3  WHERE SUBSTR(JOB, 1, 3) = 'MAN';
+
+JOB                                                                                                 
+---------                                                                                           
+MANAGER                                                                                             
+MANAGER                                                                                             
+MANAGER                                                                                             
+
+SQL> SELECT LENGTH('HELLLLL')-LENGTH(REPLACE('HELLLLL','L'))
+  2  FROM DUAL;
+
+LENGTH('HELLLLL')-LENGTH(REPLACE('HELLLLL','L'))                                                    
+------------------------------------------------                                                    
+                                               5                                                    
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE LENGTH(ENAME)-LENGTH(REPLACE(ENAME,'L'))=1;
+
+ENAME                                                                                               
+----------                                                                                          
+BLAKE                                                                                               
+CLARK                                                                                               
+
+SQL> SELECT LOWER(SUBSTR(ENAME,1,3))|| UPPER(SUBSTR(ENAME,4))
+  2  FROM EMP;
+
+LOWER(SUBS                                                                                          
+----------                                                                                          
+smiTH                                                                                               
+allEN                                                                                               
+warD                                                                                                
+jonES                                                                                               
+marTIN                                                                                              
+blaKE                                                                                               
+claRK                                                                                               
+scoTT                                                                                               
+kinG                                                                                                
+turNER                                                                                              
+adaMS                                                                                               
+jamES                                                                                               
+forD                                                                                                
+milLER                                                                                              
+
+14 rows selected.
+
+SQL> SELECT LOWER(SUBSTR(ENAME,1,3))|| UPPER(SUBSTR(ENAME,4))
+  2  FROM EMP;
+
+LOWER(SUBS                                                                                          
+----------                                                                                          
+smiTH                                                                                               
+allEN                                                                                               
+warD                                                                                                
+jonES                                                                                               
+marTIN                                                                                              
+blaKE                                                                                               
+claRK                                                                                               
+scoTT                                                                                               
+kinG                                                                                                
+turNER                                                                                              
+adaMS                                                                                               
+jamES                                                                                               
+forD                                                                                                
+milLER                                                                                              
+
+14 rows selected.
+
+SQL> SPOOL OFF

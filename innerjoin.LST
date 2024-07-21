@@ -1,0 +1,304 @@
+SQL> SELECT ENAME.DEPT.LOC
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO;
+SELECT ENAME.DEPT.LOC
+       *
+ERROR at line 1:
+ORA-00904: "ENAME"."DEPT"."LOC": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT EMP.ENAME.DEPT.LOC
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO
+SQL> /
+SELECT EMP.ENAME.DEPT.LOC
+       *
+ERROR at line 1:
+ORA-00904: "EMP"."ENAME"."DEPT"."LOC": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME,DEPT.LOC
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO
+SQL> /
+
+ENAME      LOC                                                                                      
+---------- -------------                                                                            
+SMITH      DALLAS                                                                                   
+ALLEN      CHICAGO                                                                                  
+WARD       CHICAGO                                                                                  
+JONES      DALLAS                                                                                   
+MARTIN     CHICAGO                                                                                  
+BLAKE      CHICAGO                                                                                  
+CLARK      NEW YORK                                                                                 
+SCOTT      DALLAS                                                                                   
+KING       NEW YORK                                                                                 
+TURNER     CHICAGO                                                                                  
+ADAMS      DALLAS                                                                                   
+JAMES      CHICAGO                                                                                  
+FORD       DALLAS                                                                                   
+MILLER     NEW YORK                                                                                 
+
+14 rows selected.
+
+SQL> SELECT DNAME, SAL
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO AND DNAME='ACCOUNTING';
+
+DNAME                 SAL                                                                           
+-------------- ----------                                                                           
+ACCOUNTING           2450                                                                           
+ACCOUNTING           5000                                                                           
+ACCOUNTING           1300                                                                           
+
+SQL> SELECT DNAME,SAL
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO AND SAL>2340;
+
+DNAME                 SAL                                                                           
+-------------- ----------                                                                           
+RESEARCH             2975                                                                           
+SALES                2850                                                                           
+ACCOUNTING           2450                                                                           
+RESEARCH             3000                                                                           
+ACCOUNTING           5000                                                                           
+RESEARCH             3000                                                                           
+
+6 rows selected.
+
+SQL> SELECT ENAME,DNAME
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTN0=DEPT.DEPTNO AND DNAME LIKE '%A%';
+WHERE EMP.DEPTN0=DEPT.DEPTNO AND DNAME LIKE '%A%'
+      *
+ERROR at line 3:
+ORA-00904: "EMP"."DEPTN0": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME,DNAME
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTN0=DEPT.DEPTNO AND DEPT.DNAME LIKE '%A%'
+SQL> /
+WHERE EMP.DEPTN0=DEPT.DEPTNO AND DEPT.DNAME LIKE '%A%'
+      *
+ERROR at line 3:
+ORA-00904: "EMP"."DEPTN0": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME,DNAME
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND DEPT.DNAME LIKE '%A%'
+SQL> /
+
+ENAME      DNAME                                                                                    
+---------- --------------                                                                           
+SMITH      RESEARCH                                                                                 
+ALLEN      SALES                                                                                    
+WARD       SALES                                                                                    
+JONES      RESEARCH                                                                                 
+MARTIN     SALES                                                                                    
+BLAKE      SALES                                                                                    
+CLARK      ACCOUNTING                                                                               
+SCOTT      RESEARCH                                                                                 
+KING       ACCOUNTING                                                                               
+TURNER     SALES                                                                                    
+ADAMS      RESEARCH                                                                                 
+JAMES      SALES                                                                                    
+FORD       RESEARCH                                                                                 
+MILLER     ACCOUNTING                                                                               
+
+14 rows selected.
+
+SQL> SELECT ENAME,DNAME
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO AND JOB IN 'SALESMAN';
+
+ENAME      DNAME                                                                                    
+---------- --------------                                                                           
+ALLEN      SALES                                                                                    
+WARD       SALES                                                                                    
+MARTIN     SALES                                                                                    
+TURNER     SALES                                                                                    
+
+SQL> SELECT DNAME,JOB
+  2  FROM EMP,DEPT
+  3  WHERE EMP,DEPTNO=DEPT.DEPTNO AND DNAME LIKE 'S%';
+WHERE EMP,DEPTNO=DEPT.DEPTNO AND DNAME LIKE 'S%'
+         *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DNAME,JOB
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND JOB AND DNAME LIKE 'S%'
+SQL> /
+WHERE EMP.DEPTNO=DEPT.DEPTNO AND JOB AND DNAME LIKE 'S%'
+                                     *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DNAME,JOB
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND DNAME LIKE 'S%'
+SQL> /
+
+DNAME          JOB                                                                                  
+-------------- ---------                                                                            
+SALES          SALESMAN                                                                             
+SALES          SALESMAN                                                                             
+SALES          SALESMAN                                                                             
+SALES          MANAGER                                                                              
+SALES          SALESMAN                                                                             
+SALES          CLERK                                                                                
+
+6 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DNAME,JOB
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND JOB LIKE 'S%' AND DNAME LIKE 'S%'
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> /
+
+DNAME          JOB                                                                                  
+-------------- ---------                                                                            
+SALES          SALESMAN                                                                             
+SALES          SALESMAN                                                                             
+SALES          SALESMAN                                                                             
+SALES          SALESMAN                                                                             
+
+SQL> SELECT DNAME,MGR
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO AND MGR=7839;
+
+DNAME                 MGR                                                                           
+-------------- ----------                                                                           
+RESEARCH             7839                                                                           
+SALES                7839                                                                           
+ACCOUNTING           7839                                                                           
+
+SQL> SELECT DNAME,HIREDATE
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO AND HIREDATE>'01-JAN-84' AND DEPT.DNAME='ACCONTING' AND DEPT.DNAME='RESEARCH';
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DNAME,EMP.HIREDATE
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND EMP.HIREDATE>'01-JAN-84' AND DEPT.DNAME='ACCONTING' AND DEPT.DNAME='RESEARCH'
+SQL> /
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DNAME,EMP.HIREDATE
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND EMP.HIREDATE>'01-JAN-84' AND DEPT.DNAME='ACCOUNTING' AND DEPT.DNAME='RESEARCH'
+SQL> /
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPT.DNAME,EMP.HIREDATE
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND EMP.HIREDATE>'01-JAN-84' AND DEPT.DNAME='ACCOUNTING' AND DEPT.DNAME='RESEARCH'
+SQL> /
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPT.DNAME,EMP.HIREDATE
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND EMP.HIREDATE>'01-JAN-84' AND DEPT.DNAME=('ACCOUNTING','RESEARCH') 
+SQL> /
+WHERE EMP.DEPTNO=DEPT.DEPTNO AND EMP.HIREDATE>'01-JAN-84' AND DEPT.DNAME=('ACCOUNTING','RESEARCH') 
+                                                                        *
+ERROR at line 3:
+ORA-01797: this operator must be followed by ANY or ALL 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT DEPT.DNAME,EMP.HIREDATE
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND EMP.HIREDATE>'01-JAN-84' AND DEPT.DNAME IN ('ACCOUNTING','RESEARCH') 
+SQL> /
+
+DNAME          HIREDATE                                                                             
+-------------- ---------                                                                            
+RESEARCH       19-APR-87                                                                            
+RESEARCH       23-MAY-87                                                                            
+
+SQL> SELECT ENAME,DNAME
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO AND COMM IS NOT NULL AND COMM!=0 AND DEPT.DEPTNO IN(10,20);
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME,DNAME
+  2  FROM EMP,DEPT
+  3* WHERE EMP.DEPTNO=DEPT.DEPTNO AND COMM IS NOT NULL AND COMM!=0 AND DEPT.DEPTNO IN(10,30)
+SQL> /
+
+ENAME      DNAME                                                                                    
+---------- --------------                                                                           
+ALLEN      SALES                                                                                    
+WARD       SALES                                                                                    
+MARTIN     SALES                                                                                    
+
+SQL> SELECT DNAME,EMP.EMPNO
+  2  FROM EMP,DEPT
+  3  WHERE EMP.DEPTNO=DEPT.DEPTNO AND EMP.EMPNO IN(7839,7902) AND DEPT.LOC='NEW YORK';
+
+DNAME               EMPNO                                                                           
+-------------- ----------                                                                           
+ACCOUNTING           7839                                                                           
+
+SQL> SPOOL OFF
