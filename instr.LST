@@ -1,0 +1,476 @@
+SQL> SELECT INSTR(ENAME,'A',1)
+  2  FROM EMP;
+
+INSTR(ENAME,'A',1)                                                                                  
+------------------                                                                                  
+                 0                                                                                  
+                 1                                                                                  
+                 2                                                                                  
+                 0                                                                                  
+                 2                                                                                  
+                 3                                                                                  
+                 3                                                                                  
+                 0                                                                                  
+                 0                                                                                  
+                 0                                                                                  
+                 1                                                                                  
+                 2                                                                                  
+                 0                                                                                  
+                 0                                                                                  
+
+14 rows selected.
+
+SQL> SELECT INSTR(ENAME,'A')
+  2  FROM EMP;
+
+INSTR(ENAME,'A')                                                                                    
+----------------                                                                                    
+               0                                                                                    
+               1                                                                                    
+               2                                                                                    
+               0                                                                                    
+               2                                                                                    
+               3                                                                                    
+               3                                                                                    
+               0                                                                                    
+               0                                                                                    
+               0                                                                                    
+               1                                                                                    
+               2                                                                                    
+               0                                                                                    
+               0                                                                                    
+
+14 rows selected.
+
+SQL> SELECT INSTR(ENAME,'A')
+  2  FROM EMP
+  3  WHERE ENAME='A';
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT INSTR(ENAME,'A',1)
+  2  FROM EMP
+  3* WHERE ENAME='A'
+SQL> /
+
+no rows selected
+
+SQL> SELECT INSTR(ENAME,'A',1)
+  2  FROM EMP
+  3  WHERE INSTR(ENAME);
+WHERE INSTR(ENAME)
+                 *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT INSTR(ENAME,'A',1)
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A')
+SQL> /
+WHERE INSTR(ENAME,'A')
+                     *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ENAME INSTR(ENAME,'A',1)
+SP2-0734: unknown command beginning "ENAME INST..." - rest of line ignored.
+SQL> SELECT INSTR(ENAME,'A',1)
+  2  FROM EMP;
+
+INSTR(ENAME,'A',1)                                                                                  
+------------------                                                                                  
+                 0                                                                                  
+                 1                                                                                  
+                 2                                                                                  
+                 0                                                                                  
+                 2                                                                                  
+                 3                                                                                  
+                 3                                                                                  
+                 0                                                                                  
+                 0                                                                                  
+                 0                                                                                  
+                 1                                                                                  
+                 2                                                                                  
+                 0                                                                                  
+                 0                                                                                  
+
+14 rows selected.
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE INSTR(ENAME,'A',1);
+WHERE INSTR(ENAME,'A',1)
+                       *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT INSTR(ENAME,'A',1)!=0
+  2  FROM EMP;
+SELECT INSTR(ENAME,'A',1)!=0
+                         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHARE INSTR(ENAME,'A',1)!=0
+  4  /
+WHARE INSTR(ENAME,'A',1)!=0
+      *
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A',1)!=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ALLEN                                                                                               
+WARD                                                                                                
+MARTIN                                                                                              
+BLAKE                                                                                               
+CLARK                                                                                               
+ADAMS                                                                                               
+JAMES                                                                                               
+
+7 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'LL',1)!=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ALLEN                                                                                               
+MILLER                                                                                              
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'AA',1)=2
+SQL> /
+
+no rows selected
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'AA',1)!=2
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+SMITH                                                                                               
+ALLEN                                                                                               
+WARD                                                                                                
+JONES                                                                                               
+MARTIN                                                                                              
+BLAKE                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+KING                                                                                                
+TURNER                                                                                              
+ADAMS                                                                                               
+JAMES                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A',1)!=2
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+SMITH                                                                                               
+ALLEN                                                                                               
+JONES                                                                                               
+BLAKE                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+KING                                                                                                
+TURNER                                                                                              
+ADAMS                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+11 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A',1,2)!=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A',1,2)>=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+SMITH                                                                                               
+ALLEN                                                                                               
+WARD                                                                                                
+JONES                                                                                               
+MARTIN                                                                                              
+BLAKE                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+KING                                                                                                
+TURNER                                                                                              
+ADAMS                                                                                               
+JAMES                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+14 rows selected.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A',1,2)
+SQL> /
+WHERE INSTR(ENAME,'A',1,2)
+                         *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A',1,2)<=1
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+SMITH                                                                                               
+ALLEN                                                                                               
+WARD                                                                                                
+JONES                                                                                               
+MARTIN                                                                                              
+BLAKE                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+KING                                                                                                
+TURNER                                                                                              
+JAMES                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+13 rows selected.
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE INSTR(ENAME,'A',1,2)>0;
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL> SELECT ENAME
+  2  FROM EMP
+  3  WHERE INSTR(ENAME,'A',1,2)3=0;
+WHERE INSTR(ENAME,'A',1,2)3=0
+                          *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT ENAME
+  2  FROM EMP
+  3* WHERE INSTR(ENAME,'A',1,2)>0 AND INSTR(ENAME,'A',1,3)=0
+SQL> /
+
+ENAME                                                                                               
+----------                                                                                          
+ADAMS                                                                                               
+
+SQL> SELECT SAL
+  2  FROM EMP
+  3  WHERE MOD(EMPNO,2)=0;
+
+       SAL                                                                                          
+----------                                                                                          
+      2975                                                                                          
+      1250                                                                                          
+      2850                                                                                          
+      2450                                                                                          
+      3000                                                                                          
+      1500                                                                                          
+      1100                                                                                          
+       950                                                                                          
+      3000                                                                                          
+      1300                                                                                          
+
+10 rows selected.
+
+SQL> SELECT SAL
+  2  FROM EMP
+  3  WHERE MOD(EMPNO,2)=1
+  4  ;
+
+       SAL                                                                                          
+----------                                                                                          
+       800                                                                                          
+      1600                                                                                          
+      1250                                                                                          
+      5000                                                                                          
+
+SQL> SELECT SYSSATE;
+SELECT SYSSATE
+             *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT SYSDATE
+  2  FROM DUAL;
+
+SYSDATE                                                                                             
+---------                                                                                           
+16-JUL-24                                                                                           
+
+SQL> SELECT CURRENT_DATE
+  2  FROM DUAL;
+
+CURRENT_D                                                                                           
+---------                                                                                           
+16-JUL-24                                                                                           
+
+SQL> SELECT SYSTIMESTAMP
+  2  FROM DUAL;
+
+SYSTIMESTAMP                                                                                        
+---------------------------------------------------------------------------                         
+16-JUL-24 12.46.28.680000 PM +05:30                                                                 
+
+SQL> SELECT MONTHS-BETWEEN('16-JUL-24','14-FEB-23')
+  2  FROM DUAL;
+SELECT MONTHS-BETWEEN('16-JUL-24','14-FEB-23')
+              *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT MONTHS_BETWEEN('16-JUL-24','14-FEB-23')
+  2* FROM DUAL
+SQL> /
+
+MONTHS_BETWEEN('16-JUL-24','14-FEB-23')                                                             
+---------------------------------------                                                             
+                             17.0645161                                                             
+
+SQL> SELECT HIREDATE
+  2  FROM EMP
+  3  WHERE MONTH_BETWEEN;
+WHERE MONTH_BETWEEN
+                  *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT MONTH_BETWEEN(HIREDATE)
+  2  FROM EMP;
+SELECT MONTH_BETWEEN(HIREDATE)
+       *
+ERROR at line 1:
+ORA-00904: "MONTH_BETWEEN": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  SELECT MONTHS_BETWEEN(HIREDATE)
+  2* FROM EMP
+SQL> /
+SELECT MONTHS_BETWEEN(HIREDATE)
+       *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> 
+SQL> SELECT MONTHS_BETWEEN(SYSDATE,HIREDATE)
+  2  FROM EMP;
+
+MONTHS_BETWEEN(SYSDATE,HIREDATE)                                                                    
+--------------------------------                                                                    
+                      522.985241                                                                    
+                      520.888467                                                                    
+                       520.82395                                                                    
+                      519.469112                                                                    
+                      513.630402                                                                    
+                       518.50137                                                                    
+                      517.243305                                                                    
+                      446.920725                                                                    
+                      511.985241                                                                    
+                      514.275563                                                                    
+                      445.791692                                                                    
+                      511.436854                                                                    
+                      511.436854                                                                    
+                      509.791692                                                                    
+
+14 rows selected.
+
+SQL> SELECT ROUND(MONTHS_BETWEEN(SYSDATE,HIREDATE)
+  2  FROM EMP;
+FROM EMP
+*
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SPOOL OFF

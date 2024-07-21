@@ -1,0 +1,193 @@
+SQL> RENAME  STUDENT TO STUDENTS;
+
+Table renamed.
+
+SQL> ALTER TABLE STUDENTS
+  2  ADD ADDRESS VARCHAR(100) NOT NULL;
+
+Table altered.
+
+SQL>  ALTER TABLE STUDENTS
+  2  RENAME COLUMN MAILID TO MAIL;
+RENAME COLUMN MAILID TO MAIL
+              *
+ERROR at line 2:
+ORA-00904: "MAILID": invalid identifier 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1   ALTER TABLE STUDENTS
+  2* RENAME COLUMN ADDRESS TO ADDRESS1
+SQL> /
+
+Table altered.
+
+SQL> ALTER TABLE STUDENTS
+  2  DROP COLUMN ADDRESS1;
+
+Table altered.
+
+SQL> ALTER TABLES STUDENTS
+  2  MODIFY EMAIL VARCHAR(40);
+ALTER TABLES STUDENTS
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  ALTER TABLES STUDENTS
+  2* MODIFY SNAME VARCHAR(40)
+SQL> /
+ALTER TABLES STUDENTS
+      *
+ERROR at line 1:
+ORA-00940: invalid ALTER command 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1  ALTER TABLE STUDENTS
+  2* MODIFY SNAME VARCHAR(40)
+SQL> /
+
+Table altered.
+
+SQL> DESC STUDENTS;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(40)
+ AGE                                                            NUMBER(2)
+ PH_NO                                                          NUMBER(10)
+
+SQL> ALTER TABLE STUDENTS
+  2  MODIFY AGE NUMBER(2) NOT NULL;
+
+Table altered.
+
+SQL> ALTER TABLE STUDENTS
+  2  ADD ADHAR NUMBER(5) CHECK(ADHAR>0) CHECK(LENGTH(ADHAR)=5);
+
+Table altered.
+
+SQL> DESC STUDENTS;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(40)
+ AGE                                                   NOT NULL NUMBER(2)
+ PH_NO                                                          NUMBER(10)
+ ADHAR                                                          NUMBER(5)
+
+SQL> ALTER TABLE STUDENTS
+  2  ADD CONSTRAINT UK_ADHAR UNIQUE(ADHAR);
+
+Table altered.
+
+SQL> ALTER TABLE STUDENTS
+  2  DROP CONSTRAINT UK_ADHAR;
+
+Table altered.
+
+SQL> DESC STUDENTS;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(40)
+ AGE                                                   NOT NULL NUMBER(2)
+ PH_NO                                                          NUMBER(10)
+ ADHAR                                                          NUMBER(5)
+
+SQL> SELECT CONSTRAINT_TYPE,CONSTRAINT_NAME
+  2  FROM USER_CONSTRAINTS
+  3  WHERE TABLE_NAME='STUDENTS';
+
+C CONSTRAINT_NAME                                                                                   
+- ------------------------------                                                                    
+C SYS_C005686                                                                                       
+C SYS_C005687                                                                                       
+C SYS_C005688                                                                                       
+C SYS_C005689                                                                                       
+C SYS_C005690                                                                                       
+C SYS_C005691                                                                                       
+P SYS_C005692                                                                                       
+C SYS_C005771                                                                                       
+C SYS_C005772                                                                                       
+C SYS_C005773                                                                                       
+
+10 rows selected.
+
+SQL> ALTER TABLE STUDENTS
+  2  ADD EMAIL VARCHAR(20) UNIQUE;
+
+Table altered.
+
+SQL> DESC STUDENTS;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(40)
+ AGE                                                   NOT NULL NUMBER(2)
+ PH_NO                                                          NUMBER(10)
+ ADHAR                                                          NUMBER(5)
+ EMAIL                                                          VARCHAR2(20)
+
+SQL> SELECT CONSTRAINT_TYPE,CONSTRAINT_NAME
+  2  FROM USER_CONSTRAINTS
+  3  WHERE TABLE_NAME='STUDENTS';
+
+C CONSTRAINT_NAME                                                                                   
+- ------------------------------                                                                    
+C SYS_C005686                                                                                       
+C SYS_C005687                                                                                       
+C SYS_C005688                                                                                       
+C SYS_C005689                                                                                       
+C SYS_C005690                                                                                       
+C SYS_C005691                                                                                       
+P SYS_C005692                                                                                       
+C SYS_C005771                                                                                       
+C SYS_C005772                                                                                       
+C SYS_C005773                                                                                       
+U SYS_C005775                                                                                       
+
+11 rows selected.
+
+SQL> ALTER TABLE STUDENTS
+  2  DROP CONSTRAINT SYS_C005775;
+
+Table altered.
+
+SQL> SELECT CONSTRAINT_TYPE,CONSTRAINT_NAME
+  2  FROM USER_CONSTRAINTS
+  3  WHERE TABLE_NAME='STUDENTS';
+
+C CONSTRAINT_NAME                                                                                   
+- ------------------------------                                                                    
+C SYS_C005686                                                                                       
+C SYS_C005687                                                                                       
+C SYS_C005688                                                                                       
+C SYS_C005689                                                                                       
+C SYS_C005690                                                                                       
+C SYS_C005691                                                                                       
+P SYS_C005692                                                                                       
+C SYS_C005771                                                                                       
+C SYS_C005772                                                                                       
+C SYS_C005773                                                                                       
+
+10 rows selected.
+
+SQL> ALTER TABLE TEACHER
+  2  ADD TID NUMBER(5) REFERENCES STUDENT(SID);
+ADD TID NUMBER(5) REFERENCES STUDENT(SID)
+    *
+ERROR at line 2:
+ORA-01430: column being added already exists in table 
+
+
+SQL> SPOOL OFF
