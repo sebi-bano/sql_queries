@@ -1,0 +1,197 @@
+SQL> INSERT INTO STUDENTS VALUES{12345,'PINKI',9899789910,20,PINKI@GMAIL.COM,45677);
+INSERT INTO STUDENTS VALUES{12345,'PINKI',9899789910,20,PINKI@GMAIL.COM,45677)
+                           *
+ERROR at line 1:
+ORA-00911: invalid character 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS VALUES(12345,'PINKI',9899789910,20,PINKI@GMAIL.COM,45677)
+SQL> /
+INSERT INTO STUDENTS VALUES(12345,'PINKI',9899789910,20,PINKI@GMAIL.COM,45677)
+*
+ERROR at line 1:
+ORA-04054: database link GMAIL.COM does not exist 
+
+
+SQL> DESC STUDENTS;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(40)
+ AGE                                                   NOT NULL NUMBER(2)
+ PH_NO                                                          NUMBER(10)
+ ADHAR                                                          NUMBER(5)
+ EMAIL                                                          VARCHAR2(20)
+
+SQL> INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789,PINKI);
+INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789,PINKI)
+                                                              *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789)
+SQL> /
+INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789)
+            *
+ERROR at line 1:
+ORA-00947: not enough values 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789,YELLOW)
+SQL> /
+INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789,YELLOW)
+                                                              *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789,NULL)
+SQL> /
+
+1 row created.
+
+SQL> DESC STUDENTS;
+ Name                                                  Null?    Type
+ ----------------------------------------------------- -------- ------------------------------------
+ SID                                                   NOT NULL NUMBER(5)
+ SNAME                                                 NOT NULL VARCHAR2(40)
+ AGE                                                   NOT NULL NUMBER(2)
+ PH_NO                                                          NUMBER(10)
+ ADHAR                                                          NUMBER(5)
+ EMAIL                                                          VARCHAR2(20)
+
+SQL> SELECT*
+  2  FROM STUDENTS;
+
+       SID SNAME                                           AGE      PH_NO      ADHAR                
+---------- ---------------------------------------- ---------- ---------- ----------                
+EMAIL                                                                                               
+--------------------                                                                                
+     12345 PINKI                                            20 9879986589      89789                
+                                                                                                    
+                                                                                                    
+
+SQL> INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789,NULL);
+INSERT INTO STUDENTS VALUES(12345,'PINKI',20,9879986589,89789,NULL)
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SCOTT.SYS_C005692) violated 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS VALUES(34545,'MOHA',21,9879986578,89809,NULL)
+SQL> /
+
+1 row created.
+
+SQL> INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(90908,'RINKI',6066707745,RINKI@GMA;
+INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(90908,'RINKI',6066707745,RINKI@GMA
+                                                                                              *
+ERROR at line 1:
+ORA-00917: missing comma 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(90908,'RINKI',6066707745,67665,'RINKI@GMAIL.COM',21)
+SQL> /
+
+1 row created.
+
+SQL> INSERT INTO STUDENTS VALUES(&SID,'&SNAME',&AGE,&PH_NO,&ADHAR,'&EMAIL');
+Enter value for sid: 34524
+Enter value for sname: CHINKU
+Enter value for age: 27
+Enter value for ph_no: 7868789099
+Enter value for adhar: 45672
+Enter value for email: CHINKU@GMAIL.COM
+old   1: INSERT INTO STUDENTS VALUES(&SID,'&SNAME',&AGE,&PH_NO,&ADHAR,'&EMAIL')
+new   1: INSERT INTO STUDENTS VALUES(34524,'CHINKU',27,7868789099,45672,'CHINKU@GMAIL.COM')
+
+1 row created.
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(&SID,'&SNAME',&AGE,&PH_NO,&ADHAR,'&EMAIL')
+SQL> /
+Enter value for sid: 55447
+Enter value for sname: TINKU
+Enter value for age: 25
+Enter value for ph_no: 7676908023
+Enter value for adhar: 57892
+Enter value for email: TINKU@GMAIL.COM
+old   1: INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(&SID,'&SNAME',&AGE,&PH_NO,&ADHAR,'&EMAIL')
+new   1: INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(55447,'TINKU',25,7676908023,57892,'TINKU@GMAIL.COM')
+INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(55447,'TINKU',25,7676908023,57892,'TINKU@GMAIL.COM')
+                                                                                               *
+ERROR at line 1:
+ORA-01722: invalid number 
+
+
+SQL> ED
+Wrote file afiedt.buf
+
+  1* INSERT INTO STUDENTS(SID,SNAME,PH_NO,ADHAR,EMAIL,AGE) VALUES(&SID,'&SNAME',&AGE,&PH_NO,&ADHAR,'&EMAIL')
+SQL>  V
+SP2-0042: unknown command "V" - rest of line ignored.
+SQL> UPDATE STUDENTS
+  2  SET AGE=40
+  3  WHERE SID=34524;
+
+1 row updated.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL
+SP2-0734: unknown command beginning "LLLLLLLLLL..." - rest of line ignored.
+SQL> GRANT SELECT
+  2  ON EMP
+  3  TO HR;
+
+Grant succeeded.
+
+SQL> CONN HR
+ERROR:
+ORA-28000: the account is locked 
+
+
+Warning: You are no longer connected to ORACLE.
+SQL> SELECT*
+  2  FROM SCOTT.EMP;
+SP2-0640: Not connected
+SQL> CONN HR
+ERROR:
+ORA-28000: the account is locked 
+
+
+SQL> CONN SYSTEM
+Connected.
+SQL> ALTER USER SCOTT ACCOUNT UNLOCK
+  2  TIGER
+  3  ;
+TIGER
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option 
+
+
+SQL> SPOOL OFF
